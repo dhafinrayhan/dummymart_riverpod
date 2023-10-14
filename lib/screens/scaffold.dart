@@ -24,6 +24,12 @@ class AppScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         body: AdaptiveNavigationScaffold(
+          appBar: AppBar(
+            title: const Text(
+              'DummyMart',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
           selectedIndex: selectedTab.index,
           body: child,
           onDestinationSelected: (int idx) {

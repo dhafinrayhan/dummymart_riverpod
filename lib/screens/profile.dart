@@ -7,7 +7,7 @@ class ProfileScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return const Center(
-      child: Text('Profile'),
+      child: Text('Not logged in'),
     );
   }
 }

@@ -1,12 +1,19 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'screens/products.dart';
 import 'screens/profile.dart';
 import 'screens/scaffold.dart';
 
-void main() => runApp(ProviderScope(child: DummyMartApp()));
+void main() {
+  HttpOverrides.global = AppHttpOverrides();
+
+  runApp(ProviderScope(child: DummyMartApp()));
+}
 
 class DummyMartApp extends StatelessWidget {
   DummyMartApp({super.key});
@@ -49,7 +56,10 @@ class DummyMartApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       routerConfig: _router,
-      theme: ThemeData(useMaterial3: true),
+      theme: ThemeData(
+        useMaterial3: true,
+        textTheme: GoogleFonts.montserratTextTheme(Theme.of(context).textTheme),
+      ),
     );
   }
 }
@@ -71,4 +81,12 @@ class FadeTransitionPage extends CustomTransitionPage<void> {
                 ));
 
   static final CurveTween _curveTween = CurveTween(curve: Curves.easeIn);
+}
+
+class AppHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (_, __, ___) => true;
+  }
 }
