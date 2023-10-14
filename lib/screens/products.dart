@@ -18,11 +18,19 @@ class ProductsScreen extends ConsumerWidget {
       error: (_, __) => const Center(
         child: Text('An error occured'),
       ),
-      data: (products) => GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, childAspectRatio: 3 / 4),
-        itemCount: products.length,
-        itemBuilder: (_, index) => ProductCard(products[index]),
+      data: (products) => RefreshIndicator(
+        onRefresh: () => ref.refresh(productsProvider.future),
+        child: GridView.builder(
+          padding: const EdgeInsets.all(4),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: 3 / 4,
+            mainAxisSpacing: 4,
+            crossAxisSpacing: 4,
+          ),
+          itemCount: products.length,
+          itemBuilder: (_, index) => ProductCard(products[index]),
+        ),
       ),
     );
   }
@@ -60,8 +68,8 @@ class ProductCard extends StatelessWidget {
                   Expanded(
                     child: Text(
                       product.title,
-                      style:
-                          const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 16),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
