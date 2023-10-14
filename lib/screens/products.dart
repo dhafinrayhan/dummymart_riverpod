@@ -1,6 +1,7 @@
 import 'package:flextras/flextras.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../models/product.dart';
@@ -43,63 +44,66 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: PaddedColumn(
-        padding: const EdgeInsets.all(8),
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Image.network(
-                  product.thumbnail,
-                  height: 144,
-                  fit: BoxFit.cover,
+    return GestureDetector(
+      onTap: () => context.go('/product/${product.id}'),
+      child: Card(
+        child: PaddedColumn(
+          padding: const EdgeInsets.all(8),
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.network(
+                    product.thumbnail,
+                    height: 144,
+                    fit: BoxFit.cover,
+                  ),
                 ),
-              ),
-              const Gap(8),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Text(
-                      product.title,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 16),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
+                const Gap(8),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        product.title,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 16),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
-                  ),
-                  const Gap(8),
-                  Row(
-                    children: [
-                      Text('${product.rating}'),
-                      const Gap(2),
-                      Icon(Icons.star, size: 14, color: Colors.yellow[800]),
-                    ],
-                  ),
-                ],
-              ),
-              Text(
-                product.brand,
-                style: const TextStyle(color: Colors.grey, fontSize: 11),
-              ),
-            ],
-          ),
-          Text(
-            '\$${product.price}',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 20,
-              color: Colors.green[700],
+                    const Gap(8),
+                    Row(
+                      children: [
+                        Text('${product.rating}'),
+                        const Gap(2),
+                        Icon(Icons.star, size: 14, color: Colors.yellow[800]),
+                      ],
+                    ),
+                  ],
+                ),
+                Text(
+                  product.brand,
+                  style: const TextStyle(color: Colors.grey, fontSize: 11),
+                ),
+              ],
             ),
-            textAlign: TextAlign.end,
-          ),
-        ],
+            Text(
+              '\$${product.price}',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+                color: Colors.green[700],
+              ),
+              textAlign: TextAlign.end,
+            ),
+          ],
+        ),
       ),
     );
   }

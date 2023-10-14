@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import 'screens/product_details.dart';
 import 'screens/products.dart';
 import 'screens/profile.dart';
 import 'screens/scaffold.dart';
@@ -27,6 +28,11 @@ class DummyMartApp extends StatelessWidget {
         redirect: (_, __) => '/products',
       ),
       GoRoute(
+        path: '/product/:productId',
+        redirect: (BuildContext context, GoRouterState state) =>
+            '/products/${state.pathParameters['productId']}',
+      ),
+      GoRoute(
         path: '/products',
         pageBuilder: (BuildContext context, GoRouterState state) =>
             FadeTransitionPage(
@@ -36,6 +42,15 @@ class DummyMartApp extends StatelessWidget {
             child: ProductsScreen(),
           ),
         ),
+        routes: <GoRoute>[
+          GoRoute(
+            path: ':productId',
+            builder: (BuildContext context, GoRouterState state) {
+              final productId = int.parse(state.pathParameters['productId']!);
+              return ProductDetailsScreen(id: productId);
+            },
+          ),
+        ],
       ),
       GoRoute(
         path: '/profile',
