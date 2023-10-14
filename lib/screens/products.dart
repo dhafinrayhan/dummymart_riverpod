@@ -88,16 +88,17 @@ class ProductCard extends StatelessWidget {
               style: const TextStyle(color: Colors.grey, fontSize: 11),
             ),
             const Spacer(),
-            Text(
-              '\$${product.price.toStringAsFixed(2)}',
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 12,
-                color: Colors.grey,
-                decoration: TextDecoration.lineThrough,
+            if (product.hasDiscount)
+              Text(
+                '\$${product.price.toStringAsFixed(2)}',
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12,
+                  color: Colors.grey,
+                  decoration: TextDecoration.lineThrough,
+                ),
+                textAlign: TextAlign.end,
               ),
-              textAlign: TextAlign.end,
-            ),
             Text(
               '\$${product.discountedPrice.toStringAsFixed(2)}',
               style: TextStyle(

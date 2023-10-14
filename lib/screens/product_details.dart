@@ -80,15 +80,16 @@ class ProductDetailsScreen extends ConsumerWidget {
                   ),
                 ),
                 const Gap(24),
-                Text(
-                  '\$${product.price.toStringAsFixed(2)}',
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                    color: Colors.grey,
-                    decoration: TextDecoration.lineThrough,
+                if (product.hasDiscount)
+                  Text(
+                    '\$${product.price.toStringAsFixed(2)}',
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: Colors.grey,
+                      decoration: TextDecoration.lineThrough,
+                    ),
                   ),
-                ),
                 Text(
                   '\$${product.discountedPrice.toStringAsFixed(2)}',
                   style: TextStyle(
