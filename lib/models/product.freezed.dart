@@ -225,7 +225,7 @@ class __$$ProductImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ProductImpl with DiagnosticableTreeMixin implements _Product {
+class _$ProductImpl extends _Product with DiagnosticableTreeMixin {
   const _$ProductImpl(
       {required this.id,
       required this.title,
@@ -238,7 +238,8 @@ class _$ProductImpl with DiagnosticableTreeMixin implements _Product {
       required this.category,
       required this.thumbnail,
       required final List<String> images})
-      : _images = images;
+      : _images = images,
+        super._();
 
   factory _$ProductImpl.fromJson(Map<String, dynamic> json) =>
       _$$ProductImplFromJson(json);
@@ -346,7 +347,7 @@ class _$ProductImpl with DiagnosticableTreeMixin implements _Product {
   }
 }
 
-abstract class _Product implements Product {
+abstract class _Product extends Product {
   const factory _Product(
       {required final int id,
       required final String title,
@@ -359,6 +360,7 @@ abstract class _Product implements Product {
       required final String category,
       required final String thumbnail,
       required final List<String> images}) = _$ProductImpl;
+  const _Product._() : super._();
 
   factory _Product.fromJson(Map<String, dynamic> json) = _$ProductImpl.fromJson;
 

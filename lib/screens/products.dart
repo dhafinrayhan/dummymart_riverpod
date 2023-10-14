@@ -25,7 +25,7 @@ class ProductsScreen extends ConsumerWidget {
           padding: const EdgeInsets.all(4),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            childAspectRatio: 3 / 4,
+            childAspectRatio: 5 / 7,
             mainAxisSpacing: 4,
             crossAxisSpacing: 4,
           ),
@@ -49,55 +49,60 @@ class ProductCard extends StatelessWidget {
       child: Card(
         child: PaddedColumn(
           padding: const EdgeInsets.all(8),
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Image.network(
+                product.thumbnail,
+                height: 144,
+                fit: BoxFit.cover,
+              ),
+            ),
+            const Gap(8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: Image.network(
-                    product.thumbnail,
-                    height: 144,
-                    fit: BoxFit.cover,
+                Expanded(
+                  child: Text(
+                    product.title,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 16),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
                 const Gap(8),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(
-                      child: Text(
-                        product.title,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 16),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                    const Gap(8),
-                    Row(
-                      children: [
-                        Text('${product.rating}'),
-                        const Gap(2),
-                        Icon(Icons.star, size: 14, color: Colors.yellow[800]),
-                      ],
-                    ),
+                    Text('${product.rating}'),
+                    const Gap(2),
+                    Icon(Icons.star, size: 14, color: Colors.yellow[800]),
                   ],
-                ),
-                Text(
-                  product.brand,
-                  style: const TextStyle(color: Colors.grey, fontSize: 11),
                 ),
               ],
             ),
             Text(
-              '\$${product.price}',
+              product.brand,
+              style: const TextStyle(color: Colors.grey, fontSize: 11),
+            ),
+            const Spacer(),
+            Text(
+              '\$${product.price.toStringAsFixed(2)}',
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 12,
+                color: Colors.grey,
+                decoration: TextDecoration.lineThrough,
+              ),
+              textAlign: TextAlign.end,
+            ),
+            Text(
+              '\$${product.discountedPrice.toStringAsFixed(2)}',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 20,
+                fontSize: 18,
                 color: Colors.green[700],
               ),
               textAlign: TextAlign.end,

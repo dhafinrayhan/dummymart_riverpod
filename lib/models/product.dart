@@ -20,6 +20,11 @@ class Product with _$Product {
     required List<String> images,
   }) = _Product;
 
+  bool get hasDiscount => discountPercentage > 0;
+  double get discountedPrice => (100 - discountPercentage) * price / 100;
+
+  const Product._();
+
   factory Product.fromJson(Map<String, Object?> json) =>
       _$ProductFromJson(json);
 }
