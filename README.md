@@ -2,6 +2,8 @@
 
 A sample mart application using data from [DummyJSON](https://dummyjson.com/).
 
+List of available user credentials: https://dummyjson.com/users
+
 # Screenshots
 
 Product List | Product Details
