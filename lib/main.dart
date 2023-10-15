@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import 'screens/login.dart';
 import 'screens/product_details.dart';
 import 'screens/products.dart';
 import 'screens/profile.dart';
@@ -26,6 +27,10 @@ class DummyMartApp extends StatelessWidget {
       GoRoute(
         path: '/',
         redirect: (_, __) => '/products',
+      ),
+      GoRoute(
+        path: '/login',
+        redirect: (_, __) => '/profile/login',
       ),
       GoRoute(
         path: '/product/:productId',
@@ -62,6 +67,13 @@ class DummyMartApp extends StatelessWidget {
             child: ProfileScreen(),
           ),
         ),
+        routes: <GoRoute>[
+          GoRoute(
+            path: 'login',
+            builder: (BuildContext context, GoRouterState state) =>
+                const LoginScreen(),
+          ),
+        ],
       ),
     ],
     debugLogDiagnostics: true,
